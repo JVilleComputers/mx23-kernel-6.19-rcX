@@ -1,0 +1,11 @@
+#!/bin/sh
+version=0.3
+self=$(basename $0)
+
+(vblank_mode=0 DRI_PRIME=1 glxgears -info | grep --line-buffered -E 'RENDERER|FPS' | tee ~/$(date +%Y%m%d%H%M)_jvc-gpu-check.txt) &
+
+# Roughly 3 samples
+sleep 20;
+
+killall glxgears
+echo "$self-$version Done"; 
